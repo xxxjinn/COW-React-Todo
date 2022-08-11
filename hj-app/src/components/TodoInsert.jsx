@@ -1,12 +1,7 @@
 import React, {useState} from "react";
 import styled, {css} from "styled-components";
 import {BsCheck} from "react-icons/bs";
-
-const TodoInsertBox = styled.div`
-    padding: 20px 32px;
-    padding-bottom: 48px;
-    overflow-y: auto;
-`;
+import { useTodoDispatch, useTodoNextId } from "../TodoContext";
 
 const InsertFormPositioner = styled.div`
     width: 100%;
@@ -26,6 +21,9 @@ const InsertForm = styled.form`
         top:10px;
         color:#B7B7B7;
     }
+    .checkButton:hover{
+        color:#55A541;
+    }
 `;
 
 const Input = styled.input`
@@ -41,13 +39,34 @@ const Input = styled.input`
 `;
 
 function TodoInsert(){
+    const [value, setValue] = useState('');
+
+    const dispatch = useTodoDispatch();
+    const nextId = useTodoNextId();
+
+    const onChange = e => setValue(e.target.value);
+    const onSubmit = e =>{
+        e.preventDefault();
+        dispatch({
+            type: 'CREATE',
+            todo: {
+              id: nextId.current,
+              text: value,
+              done: false
+            }
+          });
+          setValue('');
+          nextId.current += 1;
+        };
+
     return(
         <>
-          <InsertFormPositioner>
-            <InsertForm>
-                <BsCheck className="checkButton" size={40}/>
-                <Input autoFocus placeholder="What needs to be done?"/>
-            </InsertForm>
+            <InsertFormPositioner>
+                    <InsertForm onSubmit={onSubmit}>
+                        <BsCheck className="checkButton" size={40}/>
+                        <Input autoFocus placeholder="What needs to be done?"
+                            onChange={onChange} value={value}/>
+                    </InsertForm>
             </InsertFormPositioner>
         </>
     );
