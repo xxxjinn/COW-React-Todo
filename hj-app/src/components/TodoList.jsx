@@ -12,7 +12,7 @@ const TodoListBox = styled.div`
 
 function TodoList(){
     const todos = useTodoState();
-
+    console.log(todos);
     return (
       <TodoListBox>
         {todos.map(todo => (

@@ -4,7 +4,7 @@ import TodoTemplate from "./components/TodoTemplate";
 import TodoInsert from "./components/TodoInsert";
 import TodoList from "./components/TodoList";
 import { TodoProvider } from "./TodoContext";
-import TodoDate from "./components/Footer";
+import TodoFooter from "./components/Footer";
 
 const GlobalStyle = createGlobalStyle`
   body{
@@ -29,7 +29,7 @@ function App(){
         <TodoTemplate>
           <TodoInsert/>
           <TodoList />
-          <TodoDate/>
+          <TodoFooter/>
         </TodoTemplate>
     </TodoProvider>
   );
