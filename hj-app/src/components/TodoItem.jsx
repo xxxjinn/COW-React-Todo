@@ -61,24 +61,25 @@ const Text = styled.div`
         `}
 `;
 
-function TodoItem({id, done, text}){
+function TodoItem({
+    id, done, text
+  }){
     const dispatch = useTodoDispatch();
     const onToggle = () => dispatch({ type: 'TOGGLE', id });
     const onRemove = () => dispatch({ type: 'REMOVE', id });
-
-    return (
-        <TodoItemBox>
+  return (
+    <TodoItemBox>
         <CheckCircle done={done} onClick={onToggle}>
             {done && <MdDone />}
         </CheckCircle>
         <Text done={done}>{text}</Text>
         <NullBox>
-        <Remove onClick={onRemove}>
-            <MdOutlineClose />
-        </Remove>
+          <Remove onClick={onRemove}>
+            < MdOutlineClose/>
+          </Remove>
         </NullBox>
-        </TodoItemBox>
-    );
+    </TodoItemBox>
+  );
 }
 
-export default TodoItem;
+export default React.memo(TodoItem);

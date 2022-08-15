@@ -11,20 +11,20 @@ const TodoListBox = styled.div`
 `;
 
 function TodoList(){
-    const todos = useTodoState();
-    console.log(todos);
-    return (
-      <TodoListBox>
-        {todos.map(todo => (
-          <TodoItem
-            key={todo.id}
-            id={todo.id}
-            text={todo.text}
-            done={todo.done}
-          />
-        ))}
-      </TodoListBox>
-    );
+  const todos = useTodoState();
+
+  return (
+    <TodoListBox>
+      {todos.map(todo => (
+        <TodoItem
+          key={todo.id}
+          id={todo.id}
+          text={todo.text}
+          done={todo.done}
+        />
+      ))}
+    </TodoListBox>
+  );
 }
 
 export default TodoList;

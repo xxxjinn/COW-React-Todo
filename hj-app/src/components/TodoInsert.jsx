@@ -39,37 +39,36 @@ const Input = styled.input`
 `;
 
 function TodoInsert(){
-    const [value, setValue] = useState('');
+  const [value, setValue] = useState('');
 
-    const dispatch = useTodoDispatch();
-    const nextId = useTodoNextId();
+  const dispatch = useTodoDispatch();
+  const nextId = useTodoNextId();
 
-    const onChange = e => setValue(e.target.value);
-    const onSubmit = e =>{
-        e.preventDefault();
-        dispatch({
-            type: 'CREATE',
-            todo: {
-              id: nextId.current,
-              text: value,
-              done: false
-            }
-          });
-          setValue('');
-          nextId.current += 1;
-        };
-
-    return(
+  const onChange = e => setValue(e.target.value);
+  const onSubmit = e => {
+    e.preventDefault(); // 새로고침 방지
+    dispatch({
+      type: 'CREATE',
+      todo: {
+        id: nextId.current,
+        text: value,
+        done: false
+      }
+    });
+    setValue('');
+    nextId.current += 1;
+  };
+    return (
         <>
             <InsertFormPositioner>
                     <InsertForm onSubmit={onSubmit}>
                         <BsCheck className="checkButton" size={40}/>
-                        <Input autoFocus placeholder="What needs to be done?"
+                        <Input placeholder="What needs to be done?"
                             onChange={onChange} value={value}/>
                     </InsertForm>
             </InsertFormPositioner>
         </>
-    );
+    )
 }
 
-export default TodoInsert;
+export default React.memo(TodoInsert);

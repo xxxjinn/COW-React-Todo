@@ -15,6 +15,9 @@ const TodoFooterBox = styled.div`
 
 
 function TodoFooter(){
+    const todos = useTodoState();
+    console.log(todos);
+    const undoneTask = todos.filter(todo => !todo.done);
     const today = new Date();
     const dateString = today.toLocaleDateString('ko-KR', {
       year: 'numeric',
@@ -22,12 +25,9 @@ function TodoFooter(){
       day: 'numeric'
     });
 
-    const todos = useTodoState();
-    const undoneTasks = todos.filter(todo => !todo.done);
-
     return(
         <TodoFooterBox>
-            <p className="tasks">There are {undoneTasks.length} more things to do.</p>
+            <p className="tasks">There are {undoneTask.length} more things to do.</p>
             <p>{dateString}</p>
         </TodoFooterBox>
     );
