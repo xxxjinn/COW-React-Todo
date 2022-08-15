@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, useCallback} from "react";
 import styled, {css} from "styled-components";
 import {BsCheck} from "react-icons/bs";
 import { useTodoDispatch, useTodoNextId } from "../TodoContext";
+import axios from "axios";
 
 const InsertFormPositioner = styled.div`
     width: 100%;
@@ -45,19 +46,19 @@ function TodoInsert(){
   const nextId = useTodoNextId();
 
   const onChange = e => setValue(e.target.value);
-  const onSubmit = e => {
-    e.preventDefault(); // 새로고침 방지
-    dispatch({
-      type: 'CREATE',
-      todo: {
-        id: nextId.current,
-        text: value,
-        done: false
-      }
+  const onSubmit = useCallback( (e)=>{
+        e.preventDefault();
+        setValue('');
+        axios.post("http://localhost:5000/todo",{"content":value})
+        .then(function(response){
+            console.log("success");
+            console.log(response);
+        })
+        .catch(function(error){
+            console.log("error");
+            console.log(error);
+        })
     });
-    setValue('');
-    nextId.current += 1;
-  };
     return (
         <>
             <InsertFormPositioner>
