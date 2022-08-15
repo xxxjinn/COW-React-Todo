@@ -1,7 +1,7 @@
-import React from "react";
+import React,{useState} from "react";
 import styled from "styled-components";
 import TodoItem from "./TodoItem";
-import { useTodoState } from "../TodoContext";
+import { useTodoState,useTodoNextId } from "../TodoContext";
 
 const TodoListBox = styled.div`
     flex:1;
@@ -11,7 +11,20 @@ const TodoListBox = styled.div`
 `;
 
 function TodoList(){
-  const todos = useTodoState();
+    const todos = useTodoState();
+    const nextId = useTodoNextId();
+    const [items, setItems] = useState();
+  
+    useEffect(()=>{
+      axios.get("http://localhost:5000/todo").then(function(response){
+        setItems(response.data);
+        console.log("Showing Success");
+      })
+      .catch(function(error){
+        console.log("Showing Error");
+        console.log(error);
+      })
+    },[nextId]);
 
   return (
     <TodoListBox>
