@@ -1,7 +1,6 @@
 import React,{useState, useEffect} from "react";
 import styled from "styled-components";
 import TodoItem from "./TodoItem";
-import { useTodoState,useTodoNextId } from "../TodoContext";
 import axios from "axios";
 
 const TodoListBox = styled.div`
@@ -12,8 +11,6 @@ const TodoListBox = styled.div`
 `;
 
 function TodoList(){
-    const todos = useTodoState();
-    const nextId = useTodoNextId();
     const [items, setItems] = useState();
   
     useEffect(()=>{
@@ -25,16 +22,16 @@ function TodoList(){
         console.log("Showing Error");
         console.log(error);
       })
-    },[nextId]);
+    });
 
   return (
     <TodoListBox>
-      {todos.map(todo => (
+      {items && items.map(item => (
         <TodoItem
-          key={todo.id}
-          id={todo.id}
-          text={todo.text}
-          done={todo.done}
+          key={item.id}
+          id={item.id}
+          text={item.content}
+          done={item.done}
         />
       ))}
     </TodoListBox>

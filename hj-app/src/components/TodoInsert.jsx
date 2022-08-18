@@ -58,6 +58,7 @@ function TodoInsert(){
             console.log("error");
             console.log(error);
         })
+        setValue('');
     });
     return (
         <>
